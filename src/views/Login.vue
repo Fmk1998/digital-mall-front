@@ -66,7 +66,7 @@
       },
       //点击重置
       resetLoginform () {
-        /*this.$refs.loginFormRef.resetFields()*/
+        this.$refs.loginFormRef.resetFields()
       }
     }
   }

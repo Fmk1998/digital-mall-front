@@ -1,49 +1,23 @@
 <template>
   <div>
     <navheader/>
-    <nav-bread><span slot="bread">Goods</span></nav-bread>
+    <nav-bread><span slot="bread">Detail</span></nav-bread>
     <div class="accessory-result-page accessory-page">
       <div class="container">
-        <div class="filter-nav">
-          <span class="sortby">Sort by:</span>
-          <a href="javascript:void(0)" class="default cur">Default</a>
-          <a href="javascript:void(0)" class="price">Price
-            <svg class="icon icon-arrow-short">
-              <use xlink:href="#icon-arrow-short"></use>
-            </svg>
-          </a>
-          <a href="javascript:void(0)" class="filterby stopPop" @click="showFilterPop">Filter by</a>
-        </div>
         <div class="accessory-result">
-          <!-- filter -->
-          <div class="filter stopPop" id="filter" :class="{'filterby-show':filterBy}">
-            <dl class="filter-price">
-              <dt>Price:</dt>
-              <dd><a href="javascript:void(0)" :class="{'cur':priceChecked=='all'}" @click="priceChecked='all'">All</a>
-              </dd>
-              <dd v-for="(price,index) in priceFilter">
-                <a href="javascript:void(0)" @click="setPriceFilter(GoodsList)" :class="{'cur':priceChecked==GoodsList}">{{price.startPrice}}</a>
-              </dd>
-            </dl>
-          </div>
-
           <!-- search result accessories list -->
-          <div class="accessory-list-wrap">
-            <div class="accessory-list col-4">
-              <ul>
-                <li v-for="(item,index) in goodsList">
-                  <div class="pic">
-                    <a href="#"><img :src="'/static/'+item.productImg" alt=""></a>
-                  </div>
-                  <div class="main">
-                    <div class="name">{{item.productName}}</div>
-                    <div class="price">{{item.productPrice}}</div>
-                    <div class="btn-area">
-                      <a href="javascript:;" class="btn btn--m">加入购物车</a>
-                    </div>
-                  </div>
-                </li>
-              </ul>
+          <div class="accessory-list-wrap detail">
+            <div class="accessory-list ">
+              <el-card class="box-card col-5">
+                <el-carousel indicator-position="outside">
+                  <el-carousel-item v-for="(item,index) in goodsList" :key="item" >
+                    <a href="#"><img class="bimg" :src="'/static/'+item.productImg" alt=""></a>
+                  </el-carousel-item>
+                </el-carousel>
+                <div v-for="o in 4" :key="o" class="text item">
+                  {{'列表内容 ' + o }}
+                </div>
+              </el-card>
             </div>
           </div>
         </div>
@@ -64,7 +38,14 @@
   export default {
     data() {
       return {
-        goodsList: [],
+        goodsList: [
+          {
+            "productId": "10010",
+            "productName": "小米8",
+            "productPrice": "3499",
+            "productImg": "7.jpg"
+          }
+        ],
         priceFilter: [
           {
             startPrice: '手机'
@@ -88,10 +69,7 @@
     },
     methods: {
       getGoodsList() {
-        axios.get("/goods").then((result) => {
-          let res = result.data;
-          this.goodsList = res.result;
-        });
+
       },
       showFilterPop() {
         this.filterBy = true;
@@ -101,10 +79,40 @@
         this.filterBy = false;
         this.overLayFlag = false;
       },
-      setPriceFilter(index){
+      setPriceFilter(index) {
         this.priceChecked = GoodsList;
         this.closePop();
       }
     }
   }
 </script>
+<style  scoped>
+  @media only screen and (max-width: 650px) {
+
+  }
+  .container{
+    display: flex;
+    justify-content: center;
+  }
+  .detail{
+    margin-top: 30px;
+  }
+  .el-carousel__item{
+    overflow: auto;
+  }
+  .bimg {
+    width: 100%;
+  }
+  .text {
+    font-size: 14px;
+  }
+
+  .item {
+    padding: 18px 0;
+  }
+
+  .box-card {
+    width: 480px;
+  }
+
+</style>

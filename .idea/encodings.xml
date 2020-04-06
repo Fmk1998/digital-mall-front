@@ -13,6 +13,7 @@
     <file url="file://$PROJECT_DIR$/src/components/Navheader.vue" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/router/index.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/views/Cart.vue" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/views/GoodsDetail.vue" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/views/GoodsList.vue" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/views/Login.vue" charset="UTF-8" />

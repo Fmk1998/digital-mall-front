@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import axios from 'axios'
+import VueAxios from 'vue-axios'
 import Vuex from 'vuex'
 import VueLazyload from 'vue-lazyload'
 import infiniteScroll from  'vue-infinite-scroll'
@@ -16,6 +17,7 @@ import './assets/css/product.css'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
+Vue.use(VueAxios, axios);
 Vue.use(ElementUI);
 Vue.use(infiniteScroll);
 Vue.use(Vuex);
@@ -24,18 +26,24 @@ Vue.use(VueLazyload, {
   try: 3 // default 1
 })
 
+Vue.prototype.$axios=axios; //设置原型
 Vue.filter("currency",currency);
+
 Vue.config.productionTip = false;
 
 const store = new Vuex.Store({
   state: {
-    nickName:'',
+    user:{
+      uid:'',
+      uname:'',
+      password:'',
+    },
     cartCount:0
   },
   mutations: {
     //更新用户信息
-    updateUserInfo(state, nickName) {
-      state.nickName = nickName;
+    updateUserInfo(state, user) {
+      state.user = user;
     },
     updateCartCount(state,cartCount){
       state.cartCount += cartCount;
@@ -53,7 +61,7 @@ new Vue({
   },
   methods:{
     checkLogin(){
-      axios.get("users/checkLogin").then(res=> {
+      /*axios.get("users/checkLogin").then(res=> {
         var res = res.data;
         if (res.status == "0") {
           this.$store.commit("updateUserInfo", res.result);
@@ -62,15 +70,15 @@ new Vue({
             this.$router.push("/goods");
           }
         }
-      });
+      });*/
     },
     getCartCount(){
-      axios.get("users/getCartCount").then(res=>{
+      /*axios.get("users/getCartCount").then(res=>{
         var res = res.data;
         if(res.status=="0"){
           this.$store.commit("updateCartCount",res.result);
         }
-      });
+      });*/
     }
   },
   template: '<App/>',

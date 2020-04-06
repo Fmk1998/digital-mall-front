@@ -20,11 +20,12 @@
         <div class="navbar-menu-container">
           <!--<a href="/" class="navbar-link">我的账户</a>-->
           <span class="navbar-link"></span>
-          <a @click="gotoLogin" class="navbar-link">Login</a>
-          <a href="javascript:void(0)" class="navbar-link">Logout</a>
+          <a @click="gotoLogin" v-if="!this.$store.state.user.uid" class="navbar-link">Login</a>
+          <a @click="gotoUser" v-else class="navbar-link">{{this.$store.state.user.uname}}</a>
+          <a @click="loginOut" href="javascript:void(0)" class="navbar-link">Logout</a>
           <div class="navbar-cart-container">
             <span class="navbar-cart-count"></span>
-            <a class="navbar-link navbar-cart-link" href="/#/cart">
+            <a class="navbar-link navbar-cart-link" @click="gotoCart">
               <svg class="navbar-cart-logo">
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cart"></use>
               </svg>
@@ -33,21 +34,132 @@
         </div>
       </div>
     </div>
+    <el-dialog title="登录" :visible.sync="dialogFormVisible">
+      <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" class="login_form" label-width="0px">
+        <!--用户名-->
+        <el-form-item prop="uname">
+          <el-input v-model="loginForm.uname" placeholder="请输入用户名" prefix-icon="el-icon-user"></el-input>
+        </el-form-item>
+        <!--密码-->
+        <el-form-item prop="password">
+          <el-input v-model="loginForm.password" placeholder="请输入密码" prefix-icon="iconfont iconmima"
+                    type="password">
+          </el-input>
+        </el-form-item>
+        <el-form-item class="btns">
+          <el-button type="primary" @click="login">登录</el-button>
+          <el-button type="info" @click="resetLoginform">重置</el-button>
+
+        </el-form-item>
+        <div class="btns">
+          <a href="#">忘记密码</a>|
+          <a href="#">还未注册?点击注册吧</a>
+        </div>
+      </el-form>
+
+    </el-dialog>
   </header>
 </template>
 
 <script>
   export default {
-    name: "Header",
-    methods: {
-      gotoLogin() {
-        //通过push进行跳转
-        this.$router.push('/login')
+    name: "NavHeader",
+    data() {
+      return {
+        dialogFormVisible: false,
+        user:this.$store.state.user,
+        loginForm: {
+          uname: 'admin',
+          password: 'admin',
+        },
+        //这是表单的验证规则对象
+        loginFormRules: {
+          //验证用户名是否合法
+          uname: [
+            {required: true, message: '请输入登录名称', trigger: 'blur'},
+            {min: 3, max: 10, message: '长度在3到10个字符', trigger: 'blur'}
+          ],
+          //验证密码是否合法
+          password: [
+            {required: true, message: '请输入密码', trigger: 'blur'},
+          ]
+        }
       }
+    },
+    methods: {
+      getUser(){
+        this.user = this.state.user;
+      },
+      //打开个人页
+      gotoUser(){
+        this.$message.success(`欢迎您：${this.$store.state.user.uname}`)
+      },
+      //打开登录栏
+      gotoLogin() {
+        this.dialogFormVisible = true
+      },
+      resetLoginform() {
+        this.$refs.loginFormRef.resetFields()
+      },
+      login() {
+        this.$refs.loginFormRef.validate(async valid => {
+          if (!valid) return
+          console.log(this.loginForm)
+          const { data } = await this.$axios.post('/api/user/login', this.loginForm)
+          console.log(data);
+          if (!data.success) return this.$message.error('登录失败！')
+          this.$message.success('登录成功')
+          this.$store.commit('updateUserInfo', data.detail);
+          // 1. 将登录成功之后的 token，保存到客户端的 sessionStorage 中
+          //   1.1 项目中出了登录之外的其他API接口，必须在登录之后才能访问
+          //   1.2 token 只应在当前网站打开期间生效，所以将 token 保存在 sessionStorage 中
+          window.sessionStorage.setItem('token', data.detail.uid);
+          // 2. 通过编程式导航跳转到后台主页，路由地址是 /home
+          this.dialogFormVisible = false;
+          })
+      },
+      loginOut() {
+        this.$confirm('是否要退出登录？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          let useModel = {};
+          this.$store.commit('updateUserInfo', useModel);
+          this.$router.push('/');
+          this.$message({
+            type: 'success',
+            message: '退出成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
+      },
+      //前往购物车
+      gotoCart() {
+        if (this.$store.state.user.uid) this.$router.push('/cart'); //通过push进行跳转
+        else this.$message.error("请先登录！")
+      },
     }
   }
 </script>
 
 <style scoped>
+  .login_form {
 
+  }
+
+  .btns {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+
+
+  .btns a:hover {
+    color: red;
+  }
 </style>
