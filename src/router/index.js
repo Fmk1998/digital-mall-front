@@ -6,8 +6,8 @@ import Cart from '@/views/Cart'
 import Address from '@/views/Address'
 import OrderConfirm from '@/views/OrderConfirm'
 import OrderSuccess from '@/views/OrderSuccess'
-import Login from "@/views/Login";
 import GoodsDetail from "@/views/GoodsDetail";
+import Register from "@/views/Register";
 
 Vue.use(Router);
 
@@ -44,14 +44,19 @@ export default new Router({
       component:OrderSuccess
     },
     {
-      path: '/login',
-      name: 'Login',
-      component:Login
+      path: '/register',
+      name: 'Register',
+      component:Register
     },
     {
       path: '/detail',
       name: 'Detail',
       component:GoodsDetail
+    },
+    {
+      path: '/address',
+      name: 'Address',
+      component:Address
     }
   ]
 })

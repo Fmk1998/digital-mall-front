@@ -7,7 +7,7 @@ module.exports = {
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: 'baidu.com',
+    assetsPublicPath: './',
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
@@ -28,15 +28,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/goods':{
-          target:'http://localhost:3000'
+      '/api/**': {
+        target: 'http://localhost:8088',
+        //真正去后端请求的时候，不会加上api这个前缀了
+        pathRewrite: {
+          '^/api': '/'
+        }
       },
-      '/goods/*':{
-        target:'http://localhost:3000'
-      },
-      '/users/*':{
-        target:'http://localhost:3000'
-      }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README

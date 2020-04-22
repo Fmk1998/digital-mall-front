@@ -19,7 +19,7 @@
 }
 
 .accessory-list > ul > li:hover {
-  border-color: #ee7a23;
+  border-color: #009de6;
   -webkit-transform: translateY(-5px);
   -ms-transform: translateY(-5px);
   transform: translateY(-5px);
@@ -248,7 +248,7 @@
 }
 
 .filter dd a:hover, .filter dd .cur {
-  color: #ee7a23;
+  color: #009de6;
 }
 
 .filter .filter-category ul {
@@ -270,7 +270,7 @@
 }
 
 .filter .filter-category a:hover .icon-arrow-down {
-  fill: #ee7a23;
+  fill: #009de6;
   -webkit-transition: -webkit-transform .3s ease-out;
   transition: -webkit-transform .3s ease-out;
   transition: transform .3s ease-out;

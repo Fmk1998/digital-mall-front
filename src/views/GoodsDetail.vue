@@ -3,6 +3,7 @@
     <el-backtop></el-backtop>
     <navheader/>
     <nav-bread><span slot="bread">商品详情</span></nav-bread>
+
     <div class="accessory-result-page accessory-page">
       <div class="container" v-for="(item,index) in goodsList">
         <div class="accessory-result">
