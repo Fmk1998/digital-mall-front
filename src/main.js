@@ -34,20 +34,18 @@ Vue.config.productionTip = false;
 const store = new Vuex.Store({
   state: {
     user:{
-      uid:'',
-      uname:'',
-      password:'',
+      uid:sessionStorage.getItem("uid")||"",
+      uname:sessionStorage.getItem("uname")||"",
+      password:sessionStorage.getItem("password")||"",
     },
     cartCount:0
   },
   mutations: {
+
     //更新用户信息
     updateUserInfo(state, user) {
       state.user = user;
     },
-    updateCartCount(state,cartCount){
-      state.cartCount += cartCount;
-    }
   }
 });
 /* eslint-disable no-new */
@@ -57,7 +55,6 @@ new Vue({
   router,
   mounted(){
     this.checkLogin();
-    this.getCartCount();
   },
   methods:{
     checkLogin(){
@@ -72,14 +69,6 @@ new Vue({
         }
       });*/
     },
-    getCartCount(){
-      /*axios.get("users/getCartCount").then(res=>{
-        var res = res.data;
-        if(res.status=="0"){
-          this.$store.commit("updateCartCount",res.result);
-        }
-      });*/
-    }
   },
   template: '<App/>',
   //render: h => h(App),

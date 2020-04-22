@@ -43,84 +43,80 @@
     <div class="container">
       <div class="cart">
         <div class="page-title-normal">
-          <h2 class="page-title-h2"><span>My Cart</span></h2>
+          <h3><span style="font-size: 3em"><a>{{this.$store.state.user.uname}}</a>的购物车</span></h3>
         </div>
         <div class="item-list-wrap">
-          <div class="cart-item">
-            <div class="cart-item-head">
-              <ul>
-                <li>Items</li>
-                <li>Price</li>
-                <li>Quantity</li>
-                <li>Subtotal</li>
-                <li>Edit</li>
-              </ul>
-            </div>
-            <ul class="cart-item-list" v-for="(item,index) in cartList.doCartList">
-              <li>
-                <div class="cart-tab-1">
-                  <div class="cart-item-check">
-                    <a href="javascipt:;" class="checkbox-btn item-check-btn">
-                      <svg class="icon icon-ok">
-                        <use xlink:href="#icon-ok"></use>
-                      </svg>
-                    </a>
-                  </div>
-                  <div class="cart-item-pic">
-                    <img :src="'/static/'+item.pimg" alt="">
-                  </div>
-                  <div class="cart-item-title">
-                    <div class="item-name">{{item.pname}}</div>
-                  </div>
-                </div>
-                <div class="cart-tab-2">
-                  <div class="item-price">{{item.price}}</div>
-                </div>
-                <div class="cart-tab-3">
-                  <div class="item-quantity">
-                    <div class="select-self select-self-open">
-                      <div class="select-self-area">
-                        <a @click="cartItemReduce(item)" class="input-sub">-</a>
-                        <span class="select-ipt">{{item.number}}</span>
-                        <a @click="cartItemAdd(item)" class="input-add">+</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="cart-tab-4">
-                  <div class="item-price-total">{{item.price*item.number}}</div>
-                </div>
-                <div class="cart-tab-5">
-                  <div class="cart-item-opration">
-                    <a href="javascript:;" @click="delCartItem(item.oid)" class="item-edit-btn">
-                      <svg class="icon icon-del">
-                        <use xlink:href="#icon-del"></use>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
+          <el-table
+            ref="multipleTable"
+            :data="cartList.doCartList"
+            tooltip-effect="dark"
+            style="width: 100%"
+            @selection-change="handleSelectionChange">
+            <el-table-column
+              type="selection"
+              width="55">
+            </el-table-column>
+            <el-table-column
+              label="图片"
+              width="200">
+              <template slot-scope="scope"><div class="cart-item-pic">
+                <img :src="'/static/'+scope.row.pimg" alt="">
+              </div></template>
+            </el-table-column>
+            <el-table-column
+              label="商品"
+              width="200">
+              <template slot-scope="scope">{{ scope.row.pname }}</template>
+            </el-table-column>
+            <el-table-column
+              prop="price"
+              label="价格"
+              width="200">
+              <template slot-scope="scope">{{ scope.row.price }}</template>
+            </el-table-column>
+            <el-table-column
+              prop="number"
+              label="数量"
+              width="250">
+              <template slot-scope="scope">
+                <el-input-number v-model="scope.row.number" @change="cartItemChange(scope.row)" :min="1"  label="描述文字"></el-input-number>
+                <!--<a @click="cartItemReduce(item)" class="input-sub">-</a>
+                <span class="select-ipt">{{scope.row.number}}</span>
+                <a @click="cartItemAdd(item)" class="input-add">+</a>-->
+              </template>
+            </el-table-column>
+            <el-table-column
+              label="合计"
+              width="200">
+              <template slot-scope="scope">{{ scope.row.price*scope.row.number }}</template>
+            </el-table-column>
+            <el-table-column
+              fixed="right"
+              label="操作">
+              <template slot-scope="scope">
+                <el-button
+                  @click="delCartItem(scope.row.oid)"
+                  type="text"
+                  size="small">
+                  移除
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
         </div>
         <div class="cart-foot-wrap">
           <div class="cart-foot-inner">
             <div class="cart-foot-l">
               <div class="item-all-check">
-                <a href="javascipt:;">
-                  <span class="checkbox-btn item-check-btn">
-                      <svg class="icon icon-ok"><use xlink:href="#icon-ok"/></svg>
-                  </span>
-                  <span>Select all</span>
-                </a>
+                <el-button type="text" @click="toggleSelection(cartList.doCartList)">全选</el-button>
               </div>
             </div>
             <div class="cart-foot-r">
               <div class="item-total">
-                Item total: <span class="total-price">{{cartList.money}}</span>
+                总价: <span class="total-price">{{totalprice}}元</span>
               </div>
               <div class="btn-wrap">
-                <a class="btn btn--red">Checkout</a>
+                <a class="btn btn--red" @click="gotoAddress">前往下单</a>
               </div>
             </div>
           </div>
@@ -181,6 +177,9 @@
           total: 0
         },
         uid: this.$store.state.user.uid,
+        //选中的
+        multipleSelection: [],
+        totalprice: 0,
       }
     },
     mounted: function () {
@@ -189,7 +188,7 @@
     methods: {
       getCartList() {
         if (this.uid) {
-          axios.get('/api/orders/cart?uid=' + this.uid + "&current=" + this.page.current + "&size=" + this.page.size).then((result) => {
+          axios.get('/api/orders/cart?uid=' + this.uid + "&ordered=0" + "&current=" + this.page.current + "&size=" + this.page.size).then((result) => {
             let res = result.data.data;
             this.cartList.doCartList = [];
             this.cartList.money = 0;
@@ -209,7 +208,7 @@
             })
           });
         } else {
-          this.$message.error('你还没有登录，请先登录！');
+          return this.$message.error('你还没有登录，请先登录！');
         }
       },
       //删除单个购物车物品
@@ -234,27 +233,49 @@
           }
         )
       },
-      cartItemReduce(item) {
-        if (item.number === 1) return this.$message.error("已不能再减少了");
-        let itemModel = {oid: item.oid, uid: item.uid, number: item.number - 1, pid: item.pid, ordered: item.ordered};
+      //修改商品数量
+      cartItemChange(value) {
+        let itemModel = {oid: value.oid, uid: value.uid, number: value.number, pid: value.pid, ordered: value.ordered};
+        console.log(itemModel);
         axios.put("/api/orders", itemModel).then((result) => {
           if (result.status === 200) {
-            this.$message.success('减少成功');
+            this.$message.success('修改成功');
             this.getCartList();
             console.log(result)
           }
         })
       },
-      cartItemAdd(item) {
-        let itemModel = {oid: item.oid, uid: item.uid, number: item.number + 1, pid: item.pid, ordered: item.ordered};
-        axios.put("/api/orders", itemModel).then((result) => {
-          if (result.status === 200) {
-            this.$message.success('增加成功');
-            this.getCartList();
-            console.log(result)
-          }
-        })
+      //全部选中
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
+        let totalprice = 0;
+        for(let i in this.multipleSelection){
+          totalprice= totalprice+this.multipleSelection[i].price*this.multipleSelection[i].number;
+        }
+        this.totalprice = totalprice;
+      },
+      toggleSelection(rows) {
+        if (rows) {
+          rows.forEach(row => {
+            this.$refs.multipleTable.toggleRowSelection(row);
+          });
+        } else {
+          this.$refs.multipleTable.clearSelection();
+        }
+      },
+      //前往填写地址
+      gotoAddress(){
+        this.$router.push({path:'/Address',query:{ orderitems: this.multipleSelection,totalprice:this.totalprice }});
       },
     }
   }
 </script>
+<style scoped>
+  .cart-item-pic{
+    width: 80px;
+    height: 80px;
+  }
+  .cart-item-pic img{
+    width: 100%;
+  }
+</style>

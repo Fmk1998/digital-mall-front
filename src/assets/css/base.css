@@ -432,7 +432,8 @@ a:hover {
 }
 
 .nav-breadcrumb-wrap {
-  background: #f0f0f0;
+  background: #333333;
+/*  padding-top: 70px;*/
 }
 
 
@@ -441,12 +442,13 @@ a:hover {
   padding: 10px 0;
   line-height: 25px;
   font-size: 14px;
+  color: #f0f0f0;
 }
 
 .nav-breadcrumb a {
   position: relative;
   margin-right: 16px;
-  color: #999;
+  color: #f0f0f0;
 }
 
 .nav-breadcrumb a:after {

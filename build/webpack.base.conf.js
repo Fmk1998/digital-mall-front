@@ -10,14 +10,14 @@ function resolve (dir) {
 module.exports = {
   entry: {
     app: './src/main.js'
-  },
+  },   //入口文件
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
     publicPath: process.env.NODE_ENV === 'production'
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath
-  },
+  },  //输出配置
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
