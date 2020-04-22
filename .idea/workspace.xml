@@ -129,8 +129,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/Navheader.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="154" column="50" selection-start-line="151" selection-start-column="8" selection-end-line="154" selection-end-column="50" />
+            <state relative-caret-position="131">
+              <caret line="138" column="43" selection-start-line="138" selection-start-column="43" selection-end-line="138" selection-end-column="43" />
               <folding>
                 <element signature="n#style#0;n#div#1;n#div#0;n#header#0;n#template#0;n#!!top" expanded="true" />
               </folding>
@@ -237,9 +237,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="373" />
-    <option name="y" value="62" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="170" />
+    <option name="y" value="41" />
     <option name="width" value="1277" />
     <option name="height" value="858" />
   </component>
@@ -260,7 +260,7 @@
             <path>
               <item name="digital-mall-front" type="b2602c69:ProjectViewProjectNode" />
               <item name="digital-mall-front" type="462c0819:PsiDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
+              <item name="dist" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="digital-mall-front" type="b2602c69:ProjectViewProjectNode" />
@@ -448,30 +448,30 @@
       <workItem from="1587350120756" duration="712000" />
       <workItem from="1587351174385" duration="12261000" />
       <workItem from="1587364410543" duration="387000" />
-      <workItem from="1587534688715" duration="6484000" />
+      <workItem from="1587534688715" duration="6748000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="142011000" />
+    <option name="totallyTimeSpent" value="142275000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info id="npm" order="0" sideWeight="0.49367088" side_tool="true" visible="true" weight="0.2331572" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.5063291" visible="true" weight="0.2331572" />
+      <window_info id="npm" order="0" sideWeight="0.4942748" side_tool="true" visible="true" weight="0.2331572" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.5057252" visible="true" weight="0.2331572" />
       <window_info id="Structure" order="2" weight="0.25" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32740214" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.1867647" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2405303" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39941263" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Messages" order="7" weight="0.32970452" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.17607974" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49722" weight="0.29705882" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49722" visible="true" weight="0.22941177" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50277996" side_tool="true" weight="0.2804699" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="TypeScript" order="12" />
@@ -504,9 +504,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/6.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/7.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -793,10 +790,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/dist/index.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Navheader.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="154" column="50" selection-start-line="151" selection-start-column="8" selection-end-line="154" selection-end-column="50" />
+        <state relative-caret-position="131">
+          <caret line="138" column="43" selection-start-line="138" selection-start-column="43" selection-end-line="138" selection-end-column="43" />
           <folding>
             <element signature="n#style#0;n#div#1;n#div#0;n#header#0;n#template#0;n#!!top" expanded="true" />
           </folding>
