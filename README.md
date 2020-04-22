@@ -1,6 +1,4 @@
-# imoocmall
-
-> Imooc Mall 
+# 数码商城前台
 
 ## Build Setup
 
