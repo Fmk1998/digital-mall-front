@@ -23,7 +23,7 @@
           <el-input v-model="loginForm.password2" type="password" placeholder="确认密码" prefix-icon="el-icon-view" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item class="btns">
-          <el-button type="primary" @click="login">注册</el-button>
+          <el-button type="primary" @click="zhuce">注册</el-button>
           <el-button type="info" @click="resetLoginform">重置</el-button>
         </el-form-item>
       </el-form>
@@ -70,7 +70,7 @@
       }
     },
     methods: {
-      login () {
+      zhuce () {
         this.$refs.loginFormRef.validate(async valid => {
           if (!valid) return;
           let {uname,password} = this.loginForm;

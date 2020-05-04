@@ -13959,7 +13959,7 @@
             this.open();
         },
         methods: {
-            //初始化
+            //初始化订单
             open() {
                 this.orderitems = this.$route.query.orderitems;
                 this.orderdetails.totalprice = this.$route.query.totalprice;
@@ -13978,6 +13978,7 @@
             setpayment() {
                 this.payment = "货到付款"
             },
+            //检查订单信息
             checkout() {
                 if (this.orderdetails.uid === null) return this.$message.error('你还没登录，请先去登录！');
                 if (this.orderitems === null || this.orderitems === "" || this.orderdetails.totalprice === null) return this.$message.error('你还没选择商品，请先回去选择商品！');

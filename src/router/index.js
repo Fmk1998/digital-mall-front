@@ -4,14 +4,13 @@ import Router from 'vue-router'
 import GoodsList from '@/views/GoodsList'
 import Cart from '@/views/Cart'
 import Address from '@/views/Address'
-import OrderConfirm from '@/views/OrderConfirm'
-import OrderSuccess from '@/views/OrderSuccess'
 import GoodsDetail from "@/views/GoodsDetail";
 import Register from "@/views/Register";
 
 Vue.use(Router);
 
 export default new Router({
+  base: '/digital-mall/',
   routes: [
     {
       path: '/',
@@ -34,16 +33,6 @@ export default new Router({
       component:Address
     },
     {
-      path: '/orderConfirm',
-      name: 'OrderConfirm',
-      component:OrderConfirm
-    },
-    {
-      path: '/orderSuccess',
-      name: 'OrderSuccess',
-      component:OrderSuccess
-    },
-    {
       path: '/register',
       name: 'Register',
       component:Register
@@ -52,11 +41,6 @@ export default new Router({
       path: '/detail',
       name: 'Detail',
       component:GoodsDetail
-    },
-    {
-      path: '/address',
-      name: 'Address',
-      component:Address
     }
   ]
 })

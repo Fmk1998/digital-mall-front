@@ -186,6 +186,7 @@
       this.getCartList();
     },
     methods: {
+      //获取购物车列表
       getCartList() {
         if (this.uid) {
           axios.get('/api/orders/cart?uid=' + this.uid + "&ordered=0" + "&current=" + this.page.current + "&size=" + this.page.size).then((result) => {
@@ -265,6 +266,7 @@
       },
       //前往填写地址
       gotoAddress(){
+        if(this.multipleSelection.length===0) return this.$message.error("你还没选中任何商品！");
         this.$router.push({path:'/Address',query:{ orderitems: this.multipleSelection,totalprice:this.totalprice }});
       },
     }

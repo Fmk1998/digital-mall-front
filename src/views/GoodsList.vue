@@ -7,7 +7,7 @@
       <div class="container">
         <el-carousel indicator-position="outside">
           <el-carousel-item v-for="item in carouselImg" :key="item.id">
-            <img class="carouselImg" :src="'/static/carousel/'+item.cImg" alt=""/>
+            <img class="carouselImg" :src="'static/carousel/'+item.cImg" alt=""/>
           </el-carousel-item>
         </el-carousel>
         <div class="filter-nav">
@@ -45,7 +45,7 @@
               <ul>
                 <li v-for="(item,index) in goodsList">
                   <div class="pic">
-                    <a @click="gotoDetail(item.pid)"><img :src="'/static/'+item.pimg" alt=""></a>
+                    <a @click="gotoDetail(item.pid)"><img :src="'static/'+item.pimg" alt=""></a>
                   </div>
                   <div class="main">
                     <div class="name">{{item.pname}}</div>
@@ -78,6 +78,7 @@
   import Navfooter from "../components/Navfooter";
   import NavBread from "../components/NavBread";
   import axios from 'axios'
+  import {api} from "../server";
 
   export default {
     data() {
@@ -189,7 +190,6 @@
             return ((x > y) ? -1 : (x < y) ? 1 : 0)
           })
         }
-
       },
 
 
