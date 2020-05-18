@@ -60,7 +60,7 @@
               label="图片"
               width="200">
               <template slot-scope="scope"><div class="cart-item-pic">
-                <img :src="'/static/'+scope.row.pimg" alt="">
+                <img :src="scope.row.pimg" alt="">
               </div></template>
             </el-table-column>
             <el-table-column

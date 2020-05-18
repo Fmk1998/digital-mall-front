@@ -45,7 +45,7 @@
               <ul>
                 <li v-for="(item,index) in goodsList">
                   <div class="pic">
-                    <a @click="gotoDetail(item.pid)"><img :src="'static/'+item.pimg" alt=""></a>
+                    <a @click="gotoDetail(item.pid)"><img :src="item.pimg" alt=""></a>
                   </div>
                   <div class="main">
                     <div class="name">{{item.pname}}</div>

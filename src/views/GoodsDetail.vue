@@ -13,7 +13,7 @@
               <el-card class="box-card col-5">
                 <el-carousel indicator-position="outside">
                   <el-carousel-item :key="item.pid">
-                    <a @click="addCartList(item.pid)"><img class="bimg" :src="'/static/'+item.pimg" alt=""></a>
+                    <a @click="addCartList(item.pid)"><img class="bimg" :src="item.pimg" alt=""></a>
                   </el-carousel-item>
                 </el-carousel>
                 <el-collapse>
